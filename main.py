@@ -1,6 +1,12 @@
 import telebot
+import webbrowser
 
 bot = telebot.TeleBot("6421472079:AAEk8tT9b69EeuwA8e-ov2PEUl9kKxBQ44U")
+
+
+@bot.message_handler(commands=['site', 'website'])
+def site(message):
+    webbrowser.open('https://arizona-rp.com')
 
 
 @bot.message_handler(commands=["start"])
@@ -15,7 +21,19 @@ def main(message):
 def main(message):
     bot.send_message(
         message.chat.id, "<b>Help</b> <em><u>information</u></em>", parse_mode="html"
-    )
+        )
+
+
+@bot.message_handler()
+def info(message):
+    if message.text.lower() == "hello":
+        bot.send_message(
+            message.chat.id, f"Hello, {message.from_user.first_name}",
+            )
+    elif message.text.lower() == "id":
+        bot.reply_to(
+            message, f"ID: {message.from_user.id}"
+            )
 
 
 bot.polling(none_stop=True)
